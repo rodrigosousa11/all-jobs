@@ -28,3 +28,20 @@ Node.js and npm must be installed on your machine. If you don't have them instal
     ```
     npm start
     ``` 
+
+#### Client
+
+5. Navigate to the client directory using the following command:
+    ```
+    cd client
+    ```
+
+6. Install the required Node.js packages using the following command:
+    ```
+    npm install
+    ```
+
+7. Run the development server.
+    ```
+    npm run dev
+    ```
