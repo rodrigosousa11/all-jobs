@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "startAuth": "nodemon authServer.js" 
+    "auth": "nodemon authServer.js" 
   },
   "author": "Rodrigo",
   "license": "ISC",
