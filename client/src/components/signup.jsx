@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-const api_base = "http://localhost:3000/";
+const api_base = "http://localhost:4000";
 
 export default function Signup() {
     const [firstName, setFirstName] = useState("");
@@ -16,7 +16,7 @@ export default function Signup() {
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(api_base + "users/register", {
+            const response = await axios.post(api_base + "/register", {
                 firstName,
                 lastName,
                 email,

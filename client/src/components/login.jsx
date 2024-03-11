@@ -3,7 +3,7 @@ import axios from "axios";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 
-const api_base = "http://localhost:3000/";
+const api_base = "http://localhost:4000";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -14,7 +14,7 @@ export default function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(api_base + "users/login", {
+            const response = await axios.post(api_base + "/login", {
                 email,
                 password
             });
@@ -24,7 +24,6 @@ export default function Login() {
             localStorage.setItem("token", token);
             console.log("Login successful", response.data);
             navigate("/");
-            
         } catch (error) {
             console.error("Login failed", error.response.data);
             setError(error.response.data.message);
