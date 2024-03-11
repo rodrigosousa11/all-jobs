@@ -24,10 +24,15 @@ Node.js and npm must be installed on your machine. If you don't have them instal
     npm install
     ```
 
-4. Run the development server.
+4. Run the main server.
     ```
     npm start
     ``` 
+
+5. Run the authentication server.
+    ```
+    npm run auth
+    ```
 
 #### Client
 
