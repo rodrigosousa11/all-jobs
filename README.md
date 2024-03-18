@@ -29,11 +29,6 @@ Node.js and npm must be installed on your machine. If you don't have them instal
     npm start
     ``` 
 
-5. Run the authentication server.
-    ```
-    npm run auth
-    ```
-
 #### Client
 
 5. Navigate to the client directory using the following command:
