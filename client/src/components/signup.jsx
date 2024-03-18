@@ -3,7 +3,7 @@ import { FcGoogle } from "react-icons/fc";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-const api_base = "http://localhost:4000";
+const api_base = "http://localhost:3000";
 
 export default function Signup() {
     const [firstName, setFirstName] = useState("");
@@ -16,7 +16,7 @@ export default function Signup() {
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(api_base + "/register", {
+            const response = await axios.post(api_base + "/users/register", {
                 firstName,
                 lastName,
                 email,
@@ -34,11 +34,11 @@ export default function Signup() {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-zinc-200">
+        <div className="flex-grow flex justify-center items-center bg-zinc-200">
             <div className="max-w-md w-full mx-auto bg-white rounded-lg shadow-lg p-8 flex flex-col">
-                <h2 className="text-4xl font-bold text-center py-4">
-                    All-Jobs.
-                </h2>
+                <p className="text-2xl font-bold py-6">
+                    Glad to have you here!
+                </p>
                 <form onSubmit={handleSignup} className="flex flex-col">
                     <div className="flex flex-col mb-4">
                         <label>First Name</label>

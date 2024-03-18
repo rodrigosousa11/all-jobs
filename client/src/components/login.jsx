@@ -3,7 +3,7 @@ import axios from "axios";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 
-const api_base = "http://localhost:4000";
+const api_base = "http://localhost:3000";
 
 export default function Login() {
     const [email, setEmail] = useState("");
@@ -14,7 +14,7 @@ export default function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post(api_base + "/login", {
+            const response = await axios.post(api_base + "/users/login", {
                 email,
                 password
             });
@@ -24,6 +24,7 @@ export default function Login() {
             localStorage.setItem("token", token);
             console.log("Login successful", response.data);
             navigate("/");
+            window.location.reload();
         } catch (error) {
             console.error("Login failed", error.response.data);
             setError(error.response.data.message);
@@ -32,11 +33,11 @@ export default function Login() {
     
 
     return (
-        <div className="flex justify-center items-center h-screen bg-zinc-200">
+        <div className="flex-grow flex justify-center items-center bg-zinc-200">
             <div className="max-w-md w-full mx-auto bg-white rounded-lg shadow-lg p-8 flex flex-col">
-                <h2 className="text-4xl font-bold text-center py-4">
-                    All-Jobs.
-                </h2>
+                <p className="text-2xl font-bold py-6">
+                    Welcome back!
+                </p>
                 <form onSubmit={handleLogin}>
                     <div className="flex flex-col mb-4">
                         <label>Email</label>

@@ -1,7 +1,7 @@
 export default function Home() {
     return (
     <div>
-        <h1>Jose Ferreira big gay</h1>
+        <p className="text-2xl font-bold p-6">Nice picha</p>
     </div>
     );
 }
