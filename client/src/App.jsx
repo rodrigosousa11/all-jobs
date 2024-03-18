@@ -1,18 +1,22 @@
 import Login from "./components/login";
 import Home from "./components/home";
 import Signup from "./components/signup";
+import Navbar from "./components/navbar";
+import Favorites from "./components/favorites";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PrivateRoutes from "./utils/PrivateRoutes";
+import PrivateRoutes from "./utils/privateRoutes";
 
 function App() {
     return (
-        <div className="App">
+        <div className="App flex flex-col h-screen">
             <Router>
+                <Navbar />
                 <Routes>
                     <Route element={<PrivateRoutes />}>
-                        <Route element={<Home />} path="/" exact />
+                        <Route element={<Favorites />} path="/fav" />
                     </Route>
+                    <Route element={<Home />} path="/" exact />
                     <Route element={<Login />} path="/login" />
                     <Route element={<Signup />} path="/signup" />
                 </Routes>
