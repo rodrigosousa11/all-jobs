@@ -17,10 +17,7 @@ const userSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: true,
-	},
-	refreshTokens: [{
-        type: String,
-    }],
+	}
 });
 
 const User = mongoose.model("User", userSchema);
