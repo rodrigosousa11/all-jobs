@@ -21,7 +21,6 @@ export default function Home() {
 
     return (
         <div>
-
             {searchResults.slice(0, 5).map((result, index) => (
                 <div className='bg-gray-500 mb-2.5 ml-2.5 text-white'>
                     <div key={index}>
