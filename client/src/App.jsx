@@ -5,7 +5,7 @@ import Navbar from "./components/navbar";
 import Favorites from "./components/favorites";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PrivateRoutes from "./utils/privateRoutes";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
     return (
