@@ -22,9 +22,16 @@ export default function Search() {
     }, []);
 
     useEffect(() => {
+        const lowerCaseSearchString = searchString.toLowerCase();
+
         const results = searchResults.filter(result =>
-            result.title.toLowerCase().includes(searchString.toLowerCase())
+            result.title.toLowerCase().includes(lowerCaseSearchString) ||
+            result.company_name.toLowerCase().includes(lowerCaseSearchString) ||
+            (result.tags && result.tags.some(tag => tag.toLowerCase().includes(lowerCaseSearchString))) ||
+            (result.job_types && result.job_types.some(type => type.toLowerCase().includes(lowerCaseSearchString))) ||
+            (result.location && result.location.toLowerCase().includes(lowerCaseSearchString))
         );
+
         setFilteredResults(results);
     }, [searchString, searchResults]);
 
