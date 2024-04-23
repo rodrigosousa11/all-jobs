@@ -1,9 +1,58 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-function Job() {
+const api_base = "http://localhost:3000/apis/jobs";
+
+export default function JobDetails() {
+    const [jobDetails, setJobDetails] = useState(null);
+    const [error, setError] = useState('');
+    const { slug } = useParams();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                console.log("Fetching data for slug:", slug); // Verificar se slug está definido
+                if (!slug) return;
+                const response = await axios.get(`${api_base}/${slug}`);
+                console.log("Response data:", response.data); // Verificar os dados retornados pela API
+                const job = response.data.data;
+                if (job) {
+                    console.log("Job details:", job); // Verificar os detalhes do trabalho obtidos
+                    setJobDetails(job);
+                } else {
+                    throw new Error('Job not found');
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                setError('Failed to load job details');
+            }
+        };
+    
+        fetchData();
+    }, [slug]);
+    
+
+    const formatDate = (timestamp) => {
+        const date = new Date(timestamp * 1000);
+        return date.toLocaleDateString();
+    };
+
     return (
-        <h1>ARROZ</h1>
+        <div className="p-4">
+            {jobDetails ? (
+                <div className="bg-gray-200 rounded p-4 border border-gray-300">
+                    <h2 className="text-lg font-bold mb-2">{jobDetails.title}</h2>
+                    <p className="text-gray-600">Company: {jobDetails.company_name}</p>
+                    <p className="text-gray-600">Location: {jobDetails.location}</p>
+                    <p className="text-gray-600">Posted: {formatDate(jobDetails.created_at)}</p>
+                    <a href={jobDetails.url} target="_blank" rel="noopener noreferrer">Candidata te aí bro</a>
+                </div>
+            ) : error ? (
+                <p>{error}</p>
+            ) : (
+                <p>Loading job details...</p>
+            )}
+        </div>
     );
 }
-
-export default Job;

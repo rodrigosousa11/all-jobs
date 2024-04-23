@@ -4,6 +4,7 @@ require("dotenv").config();
 const cors = require("cors");
 
 const usersRouter = require("./routes/users");
+const apisRouter = require("./routes/apis");
 
 const app = express();
 
@@ -16,7 +17,8 @@ mongoose
     .catch(console.error);
 
 app.use("/users", usersRouter);
+app.use("/apis", apisRouter);
 
 app.listen(3000, () => {
-	console.log("Server is running on  http://localhost:3000/");
+	console.log("Server is running on http://localhost:3000/");
 });
