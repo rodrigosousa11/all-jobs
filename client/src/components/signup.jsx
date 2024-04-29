@@ -10,6 +10,7 @@ export default function Signup() {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [passwordTouched, setPasswordTouched] = useState(false); // Track if password field has been touched
     const [error, setError] = useState("");
     const navigate = useNavigate();
 
@@ -31,6 +32,13 @@ export default function Signup() {
             console.error("Signup failed", error.response.data);
             setError(error.response.data.message);
         }
+    };
+
+    const validatePassword = (password) => {
+        // Minimum password length requirement
+        const hasUpperCase = /[A-Z]/.test(password); // Check for uppercase letters
+        const hasNumber = /[0-9]/.test(password); // Check for numbers
+        return password.length >= 8 && hasUpperCase && hasNumber;
     };
 
     return (
@@ -70,13 +78,28 @@ export default function Signup() {
                     <div className="flex flex-col mb-4">
                         <label>Password</label>
                         <input
-                            className="border relative bg-zinc-50 rounded p-2"
+                            className={`border relative bg-zinc-50 rounded p-2 ${
+                                password && !validatePassword(password) && passwordTouched
+                                    ? "border-red-500" 
+                                    : ""
+                            }`}
                             type="password"
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => {
+                                setPassword(e.target.value);
+                                setPasswordTouched(true);
+                            }}
                         />
+                        {!validatePassword(password) && passwordTouched && (
+                            <p className="text-red-500 text-sm mt-1">
+                                Password must be at least 8 characters long and contain at least one uppercase letter and one number.
+                            </p>
+                        )}
                     </div>
-                    <button className="w-full py-3 mt-2 bg-indigo-600 hover:bg-indigo-500 relative rounded  text-white">
+                    <button
+                        className="w-full py-3 mt-2 bg-indigo-600 hover:bg-indigo-500 relative rounded  text-white"
+                        disabled={!validatePassword(password)} // Disable button if password is invalid
+                    >
                         Sign Up
                     </button>
                     <div className="flex justify-center py-6">

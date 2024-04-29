@@ -12,13 +12,13 @@ export default function JobDetails() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log("Fetching data for slug:", slug); // Verificar se slug está definido
+                console.log("Fetching data for slug:", slug);
                 if (!slug) return;
                 const response = await axios.get(`${api_base}/${slug}`);
-                console.log("Response data:", response.data); // Verificar os dados retornados pela API
+                console.log("Response data:", response.data); 
                 const job = response.data.data;
                 if (job) {
-                    console.log("Job details:", job); // Verificar os detalhes do trabalho obtidos
+                    console.log("Job details:", job); 
                     setJobDetails(job);
                 } else {
                     throw new Error('Job not found');
@@ -46,6 +46,7 @@ export default function JobDetails() {
                     <p className="text-gray-600">Company: {jobDetails.company_name}</p>
                     <p className="text-gray-600">Location: {jobDetails.location}</p>
                     <p className="text-gray-600">Posted: {formatDate(jobDetails.created_at)}</p>
+                    <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: jobDetails.description }}></p>
                     <a href={jobDetails.url} target="_blank" rel="noopener noreferrer">Candidata te aí bro</a>
                 </div>
             ) : error ? (
