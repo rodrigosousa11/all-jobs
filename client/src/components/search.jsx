@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const api_base = "https://www.arbeitnow.com/api/job-board-api";
+const api_base = "http://localhost:3000/apis/jobs";
 
 export default function Search() {
     const [searchResults, setSearchResults] = useState([]);
