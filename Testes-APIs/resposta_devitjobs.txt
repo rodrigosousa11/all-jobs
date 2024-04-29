@@ -1,0 +1,81 @@
+{
+  "jobs": {
+    "job": [
+      {
+        "$": {
+          "id": "6035689b3f528400179c10cc",
+          "category": "IT"
+        },
+        "id": [
+          "6035689b3f528400179c10cc"
+        ],
+        "AdvertiserType": [
+          "Company"
+        ],
+        "ispromoted": [
+          "true"
+        ],
+        "cpc": [
+          "0"
+        ],
+        "name": [
+          "Front-End Developer "
+        ],
+        "title": [
+          "Front-End Developer "
+        ],
+        "link": [
+          "https://devitjobs.uk/jobs/Automata-Front-End-Developer-"
+        ],
+        "apply_url": [
+          "https://devitjobs.uk/jobs/Automata-Front-End-Developer-"
+        ],
+        "url": [
+          "https://devitjobs.uk/jobs/Automata-Front-End-Developer-"
+        ],
+        "country": [
+          "United Kingdom"
+        ],
+        "region": [
+          "London"
+        ],
+        "location": [
+          "Windsor St, London"
+        ],
+        "city": [
+          "London"
+        ],
+        "postal_code": [
+          "N1 8QG"
+        ],
+        "postcode": [
+          "N1 8QG"
+        ],
+        "logo": [
+          "https://static.devitjobs.uk/logo-images/automata-logo.jpg"
+        ],
+        "salary": [
+          "50,000 - 65,000 GBP per year"
+        ],
+        "company": [
+          "Automata"
+        ],
+        "company-name": [
+          "Automata"
+        ],
+        "jobtype": [
+          "Full-Time"
+        ],
+        "job-type": [
+          "Full-Time"
+        ],
+        "job-status": [
+          "Full-Time"
+        ],
+        "pubdate": [
+          "24.07.2023"
+        ],
+        "description": [
+          "<p><strong>Salary 50,000 - 65,000 GBP per year </strong></p><br><p><strong>Requirements:</strong></p><p>- At least 4 years of Frontend Web Development Experience: have worked with React and modern web apps (bonus: Three.js, 3D rendering, SVG or webpack experience)<br>Good communication skills: comfortable interacting with customers and working closely with our sales and support teams<br>Knowledge of UI design and User Experience, working with our designers and users to provide a constantly great experience<br>Happy interacting with APIs with a solid understanding of API usage and design, ideally with some backend development experience </p><br><br><p><strong>Responsibilities:</strong></p><p>- Contributing ideas and working on exciting new features in our roadmap<br>Producing Choreograph updates from design, implementation, testing to release<br>Handling support requests from customers, helping them to develop their robotic use cases and squashing bugs<br>You will also have the opportunity to learn about other technical areas such as Back-End, DevOps, System Development, Firmware and Manufacturing, depending on your interests and strengths</p><br><br><p><strong>Technologies:</strong></p><p>- React<br>- Three.js<br>- API</p><br><p>More: </p>We’re looking for an experienced Front-End developer to join our growing team. <br><br>You’ll be working on ‘Choreograph’, Eva’s powerful, web-based, visual editor, based on a modern tech stack. This will include interacting with our robot and cloud APIs, improving our 3D programming environment and working with a wide range of robotics use cases.<br><br>We would like to find driven people who are excited by technical challenges and love working as part of a team. No robotics experience needed but curiosity and passion is appreciated!<br><br>We’re passionate about the future of Technology and Robotics and our growing success is built upon like-minded individuals who share our passion. <br><br>The variety of exciting technical challenges in Eva is endless and we enjoy working across the stack in collaboration with other technical disciplines to deliver game-changing robotics features. <br><br>If this sounds like a good fit and you are an experienced Front-End developer, we'd love to hear from you. "
+        ]
+      },
