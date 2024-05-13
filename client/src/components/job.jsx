@@ -47,7 +47,9 @@ export default function JobDetails() {
                     <p className="text-gray-600">Location: {jobDetails.location}</p>
                     <p className="text-gray-600">Posted: {formatDate(jobDetails.created_at)}</p>
                     <p className="text-gray-600" dangerouslySetInnerHTML={{ __html: jobDetails.description }}></p>
-                    <a href={jobDetails.url} target="_blank" rel="noopener noreferrer">Candidata te aí bro</a>
+                    <button className="mt-3 bg-gray-700 hover:bg-gray-800 text-white font-bold py-2 px-4 rounded">
+                        <a href={jobDetails.url} target="_blank" rel="noopener noreferrer" className="text-white">View Job</a>
+                    </button>
                 </div>
             ) : error ? (
                 <p>{error}</p>

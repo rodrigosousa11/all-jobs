@@ -1,27 +1,35 @@
-import Login from "./components/login";
-import Home from "./components/home";
-import Signup from "./components/signup";
+import React, { useState } from 'react';
 import Navbar from "./components/navbar";
+import Home from "./components/home";
+import Login from "./components/login";
+import Signup from "./components/signup";
 import Favorites from "./components/favorites";
-import Search from "./components/search";
 import Job from "./components/job";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PrivateRoutes from "./utils/privateRoutes";
+import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const handleSearch = (term) => {
+        setSearchTerm(term);
+    };
+
+    const clearSearch = () => {
+        setSearchTerm('');
+    };
+
     return (
         <div className="App flex flex-col h-screen">
             <Router>
-                <Navbar />
+                <Navbar onSearch={handleSearch} onClearSearch={clearSearch} />
                 <Routes>
                     <Route element={<PrivateRoutes />}>
                         <Route element={<Favorites />} path="/fav" />
                     </Route>
-                    <Route element={<Home />} path="/" exact />
+                    <Route element={<Home searchQuery={searchTerm} />} path="/" exact />
                     <Route element={<Login />} path="/login" />
                     <Route element={<Signup />} path="/signup" />
-                    <Route element={<Search />} path="/search" />
                     <Route element={<Job />} path="/job/:slug" />
                 </Routes>
             </Router>
