@@ -2,16 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const api_base = "http://localhost:3000/apis/jobs";
+const api_base = "http://localhost:3000/apis/2jobs";
 
 const Home = ({ searchQuery }) => {
     const [searchResults, setSearchResults] = useState([]);
+    const [favorites, setFavorites] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await axios.get(api_base);
-                setSearchResults(response.data.data);
+                setSearchResults(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
@@ -25,32 +26,48 @@ const Home = ({ searchQuery }) => {
         return date.toLocaleString();
     };
 
-    let jobsToDisplay = searchResults;
+    const addToFavorites = (job) => {
+        setFavorites(prevFavorites => [...prevFavorites, job]);
+    };
 
-    if (searchQuery) {
-        // Filter the results based on search query
-        jobsToDisplay = searchResults.filter(result =>
-            result.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            result.company_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            result.location.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+    let jobsToDisplay = [];
+
+    if (searchResults) {
+        if (searchQuery) {
+            jobsToDisplay = searchResults.filter(result => {
+                let title = Array.isArray(result.title) ? result.title[0] : result.title;
+                let company_name = Array.isArray(result.company_name) ? result.company_name[0] : result.company_name;
+                let location = Array.isArray(result.location) ? result.location[0] : result.location;
+            
+                return (
+                    (typeof title === 'string' && title.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (typeof company_name === 'string' && company_name.toLowerCase().includes(searchQuery.toLowerCase())) ||
+                    (typeof location === 'string' && location.toLowerCase().includes(searchQuery.toLowerCase()))
+                );
+            });
+        } else {
+            jobsToDisplay = searchResults;
+        }
     }
 
     return (
         <div className="p-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {jobsToDisplay.slice(0, 50).map((result, index) => (
-                    <Link to={{ pathname: `/job/${result.slug}`, state: { jobDetails: result } }} key={index}>
-                        <div
-                            key={index}
-                            className="bg-gray-200 rounded p-4 border border-gray-300 min-h-48" 
-                        >
+                    <div
+                        key={index}
+                        className="bg-gray-200 rounded p-4 border border-gray-300 min-h-64" 
+                    >
+                        <Link to={{ pathname: `/job/${result.slug}`, state: { jobDetails: result } }}>
                             <h2 className="text-lg font-bold mb-2">{result.title}</h2>
-                            <p className="text-gray-600">Company: {result.company_name}</p>
-                            <p className="text-gray-600">Location: {result.location}</p>
-                            <p className="text-gray-600">Posted: {formatDate(result.created_at)}</p>
-                        </div>
-                    </Link>
+                        </Link>
+                        <p className="text-gray-600">Company: {result.company_name}</p>
+                        <p className="text-gray-600">Location: {result.location}</p>
+                        <p className="text-gray-600">Posted: {formatDate(result.created_at)}</p>
+                        <button onClick={() => addToFavorites(result)} className="bg-gray-600 text-white px-3 py-2 mt-4 rounded hover:bg-blue-600">
+                            Add to Favorites
+                        </button>
+                    </div>
                 ))}
             </div>
         </div>

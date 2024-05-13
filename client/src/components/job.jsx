@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-const api_base = "http://localhost:3000/apis/jobs";
+const api_base = "http://localhost:3000/apis/2jobs";
 
 export default function JobDetails() {
     const [jobDetails, setJobDetails] = useState(null);

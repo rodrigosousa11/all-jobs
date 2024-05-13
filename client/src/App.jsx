@@ -10,6 +10,7 @@ import PrivateRoutes from "./utils/PrivateRoutes";
 
 function App() {
     const [searchTerm, setSearchTerm] = useState('');
+    const [favoriteJobs, setFavoriteJobs] = useState([]);
 
     const handleSearch = (term) => {
         setSearchTerm(term);
@@ -19,15 +20,19 @@ function App() {
         setSearchTerm('');
     };
 
+    const addToFavorites = (job) => {
+        setFavoriteJobs(prevJobs => [...prevJobs, job]);
+    };
+
     return (
         <div className="App flex flex-col h-screen">
             <Router>
                 <Navbar onSearch={handleSearch} onClearSearch={clearSearch} />
                 <Routes>
                     <Route element={<PrivateRoutes />}>
-                        <Route element={<Favorites />} path="/fav" />
+                        <Route element={<Favorites favorites={favoriteJobs} />} path="/fav" />
                     </Route>
-                    <Route element={<Home searchQuery={searchTerm} />} path="/" exact />
+                    <Route element={<Home searchQuery={searchTerm} addToFavorites={addToFavorites} />} path="/" exact />
                     <Route element={<Login />} path="/login" />
                     <Route element={<Signup />} path="/signup" />
                     <Route element={<Job />} path="/job/:slug" />

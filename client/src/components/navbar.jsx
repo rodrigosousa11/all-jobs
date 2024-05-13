@@ -28,18 +28,25 @@ const Navbar = ({ onSearch, onClearSearch }) => {
         onClearSearch();
     };
 
+    const handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
+
     return (
         <nav className="flex flex-wrap items-center justify-between bg-gray-800 p-5">
-        <Link to="/" className="text-white text-xl font-bold w-full md:w-auto" onClick={handleClearSearch}>zebbra.</Link>
-        <div className="flex items-center space-x-4 mt-4 md:mt-0">
-            <input
-                type="text"
-                placeholder="Search jobs"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="px-2 py-1 rounded"
-            />
-            <button onClick={handleSearch} className="text-white bg-gray-600 px-2 py-1 rounded">Search</button>
+            <Link to="/" className="text-white text-xl font-bold w-full md:w-auto" onClick={handleClearSearch}>zebbra.</Link>
+            <div className="flex items-center space-x-4 mt-4 md:mt-0">
+                <input
+                    type="text"
+                    placeholder="Search jobs"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onKeyPress={handleKeyPress} // Add event listener for key press
+                    className="px-2 py-1 rounded"
+                />
+                <button onClick={handleSearch} className="text-white bg-gray-600 px-2 py-1 rounded">Search</button>
                 <Link to="/" className="text-white hover:text-gray-300" onClick={handleClearSearch}>Home</Link>
                 
                 {hasToken && (
