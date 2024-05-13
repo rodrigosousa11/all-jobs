@@ -5,10 +5,9 @@ import Navbar from "./components/navbar";
 import Favorites from "./components/favorites";
 import Search from "./components/search";
 import Job from "./components/job";
-import DevItJobs from './components/devitjobs';
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PrivateRoutes from "./utils/PrivateRoutes";
+import PrivateRoutes from "./utils/privateRoutes";
 
 function App() {
     return (
