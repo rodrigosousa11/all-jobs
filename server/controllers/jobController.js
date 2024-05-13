@@ -36,11 +36,7 @@ const devitjobs_plus_arbeitjobs = async (req, res) => {
         const devUrl = 'https://devitjobs.uk/job_feed.xml';
         const arbeitUrl = 'https://arbeitnow.com/api/job-board-api';
         const responseDev = await axios.get(devUrl);
-        console.log("devitjobs response:");
-        console.log(responseDev);
         const responseArbeit = await axios.get(arbeitUrl);
-        console.log("arbeitnow response:");
-        console.log(responseArbeit);
 
         xml2js.parseString(responseDev.data, (err, result) => {
             if (err) {
@@ -48,7 +44,6 @@ const devitjobs_plus_arbeitjobs = async (req, res) => {
                 res.status(500).send({ error: "Failed to parse XML" });
             } else {
                 const resultDev = result;
-                console.log(resultDev);
                 const mergedResult = mergeAndRenameKeys(resultDev, responseArbeit.data.data);
                 res.send(mergedResult);
             }
@@ -68,17 +63,17 @@ function mergeAndRenameKeys(resultDev, responseArbeit) {
     const renamedJobsFromXml = jobsFromXml.map(job => ({
         ...job,
         company_name: job['company-name'],
-        pubdate: job['pubdate'],
         job_types: job['job-types'],
-        slug: job['$']['id'], // Use the id from the devitjobs API as the slug
+        created_at: job['pubdate'],
+        slug: job['$']['id'],
     }));
 
     // Remove the old keys
     renamedJobsFromXml.forEach(job => {
         delete job['company-name'];
-        delete job['pubdate'];
         delete job['job-types'];
         delete job['id'];
+        delete job['pubdate'];
     });
 
     // Merge the array from XML with the responseArbeit data
@@ -114,8 +109,6 @@ const devitjobs_plus_arbeitjobsOnlyOne = async (req, res) => {
         res.status(500).send({ error: "Failed to fetch data" });
     }
 };
-
-
 
 module.exports = {
     arbeitnow,

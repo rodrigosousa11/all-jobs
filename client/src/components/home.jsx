@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const api_base = "http://localhost:3000/apis/2jobs";
+const api_base = "http://localhost:3000/apis/jobs";
 
 const Home = ({ searchQuery }) => {
     const [searchResults, setSearchResults] = useState([]);
@@ -21,9 +21,16 @@ const Home = ({ searchQuery }) => {
         fetchData();
     }, []);
 
-    const formatDate = (timestamp) => {
-        const date = new Date(timestamp * 1000);
-        return date.toLocaleString();
+    const formatDate = (dateInput) => {
+        if (!isNaN(dateInput)) {
+            const date = new Date(dateInput * 1000);
+            const day = date.getDate();
+            const month = date.getMonth() + 1;
+            const year = date.getFullYear();
+            return `${day}.${month}.${year}`;
+        } else {
+            return dateInput;
+        }
     };
 
     const addToFavorites = (job) => {
