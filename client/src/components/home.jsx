@@ -37,8 +37,27 @@ const Home = ({ searchQuery }) => {
 
     const addToFavorites = (job) => {
         const token = localStorage.getItem('token');
+        console.log(token);
 
         axios.post(`${fav_base}job/new`, { jobId: job.slug }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        })
+        .then(response => {
+            console.log(response.data);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    }
+
+    const removeFromFavorites = (job) => {
+    const token = localStorage.getItem('token');
+    console.log(token);
+
+    axios.post(`${fav_base}job/remove`, { jobId: job.slug }, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,

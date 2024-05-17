@@ -18,7 +18,7 @@ export default function Login() {
                 email,
                 password
             });
-            const token = response.data.accesstoken;
+            const token = response.data.accessToken;
 
             setError("");
             localStorage.setItem("token", token);
