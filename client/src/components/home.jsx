@@ -8,7 +8,8 @@ const fav_base = "http://localhost:3000/users/";
 const Home = ({ searchQuery }) => {
     const [searchResults, setSearchResults] = useState([]);
     const [favorites, setFavorites] = useState([]);
-
+    const [loading, setLoading] = useState(true);
+    const [favoriteStatus, setFavoriteStatus] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,9 +20,50 @@ const Home = ({ searchQuery }) => {
                 console.error('Error fetching data:', error);
             }
         };
-
+    
         fetchData();
     }, []);
+    
+    useEffect(() => {
+        const checkFavorites = async () => {
+            setLoading(true);
+            const promises = searchResults.map(async (job) => {
+                const response = await checkIfFavorite(job);
+                setFavoriteStatus(prevStatus => ({ ...prevStatus, [job.slug]: response.data.isFavorite }));
+            });
+            await Promise.all(promises);
+            setLoading(false);
+        };
+    
+        if (searchResults.length > 0) {
+            checkFavorites();
+        }
+    }, [searchResults]);
+
+    const checkIfFavorite = (job) => {
+        const token = localStorage.getItem('token');
+
+        return axios.post(`${fav_base}job/isfavorite`, { jobId: job.slug }, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        });
+    }
+
+    const handleButtonClick = async (job) => {
+        const isFavorite = favoriteStatus[job.slug];
+        if (isFavorite) {
+            await removeFromFavorites(job);
+        } else {
+            await addToFavorites(job);
+        }
+    
+        setFavoriteStatus(prevStatus => ({
+            ...prevStatus,
+            [job.slug]: !isFavorite
+        }));
+    }
 
     const formatDate = (dateInput) => {
         if (!isNaN(dateInput)) {
@@ -37,9 +79,8 @@ const Home = ({ searchQuery }) => {
 
     const addToFavorites = (job) => {
         const token = localStorage.getItem('token');
-        console.log(token);
 
-        axios.post(`${fav_base}job/new`, { jobId: job.slug }, {
+        return axios.post(`${fav_base}job/new`, { jobId: job.slug }, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
@@ -54,21 +95,20 @@ const Home = ({ searchQuery }) => {
     }
 
     const removeFromFavorites = (job) => {
-    const token = localStorage.getItem('token');
-    console.log(token);
+        const token = localStorage.getItem('token');
 
-    axios.post(`${fav_base}job/remove`, { jobId: job.slug }, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-        })
-        .then(response => {
-            console.log(response.data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+        return axios.post(`${fav_base}job/remove`, { jobId: job.slug }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+            })
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     let jobsToDisplay = [];
@@ -93,24 +133,28 @@ const Home = ({ searchQuery }) => {
 
     return (
         <div className="p-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {jobsToDisplay.slice(0, 50).map((result, index) => (
-                    <div
-                        key={index}
-                        className="bg-gray-200 rounded p-4 border border-gray-300 min-h-64" 
-                    >
-                        <Link to={{ pathname: `/job/${result.slug}`, state: { jobDetails: result } }}>
-                            <h2 className="text-lg font-bold mb-2">{result.title}</h2>
-                        </Link>
-                        <p className="text-gray-600">Company: {result.company_name}</p>
-                        <p className="text-gray-600">Location: {result.location}</p>
-                        <p className="text-gray-600">Posted: {formatDate(result.created_at)}</p>
-                        <button onClick={() => addToFavorites(result)} className="bg-gray-600 text-white px-3 py-2 mt-4 rounded hover:bg-blue-600">
-                            Add to Favorites
-                        </button>
-                    </div>
-                ))}
-            </div>
+            {loading ? (
+                <p>Loading jobs...</p>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {jobsToDisplay.slice(0, 50).map((result, index) => (
+                        <div
+                            key={index}
+                            className="bg-gray-200 rounded p-4 border border-gray-300 min-h-64" 
+                        >
+                            <Link to={{ pathname: `/job/${result.slug}`, state: { jobDetails: result } }}>
+                                <h2 className="text-lg font-bold mb-2">{result.title}</h2>
+                            </Link>
+                            <p className="text-gray-600">Company: {result.company_name}</p>
+                            <p className="text-gray-600">Location: {result.location}</p>
+                            <p className="text-gray-600">Posted: {formatDate(result.created_at)}</p>
+                            <button onClick={() => handleButtonClick(result)} className="bg-gray-600 text-white px-3 py-2 mt-4 rounded hover:bg-blue-600">
+                                {favoriteStatus[result.slug] ? 'Remove from Favorites' : 'Add to Favorites'}
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };
