@@ -9,5 +9,6 @@ router.get("/me", authenticateToken, userController.getLoggedInUserDetails);
 router.post("/job/new", authenticateToken, userController.addFavorite);
 router.post("/job/remove", authenticateToken, userController.removeFavorite); 
 router.post("/job/isfavorite", authenticateToken, userController.isFavorite); // verifica se um emprego esta nos favoritos
+router.post("/job/getFavoriteJobs", authenticateToken, userController.getFavoriteJobs); // retorna lista de favoritos
 
 module.exports = router;

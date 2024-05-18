@@ -64,12 +64,12 @@ export default function Login() {
                         <input className="mr-2" type="checkbox" />
                         Remember Me
                     </p>
-                    <div className="flex justify-center py-6">
+                    {/* <div className="flex justify-center py-6">
                         <p className="border rounded shadow-lg hover:shadow-xl px-6 py-2 relative flex items-center">
                             <FcGoogle className="mr-2" /> Google
                         </p>
-                    </div>
-                    <p className="text-center mt-2">
+                    </div> */}
+                    <p className="text-center mt-7">
                         Not a member? <Link to="/signup" className="text-indigo-600 hover:underline">Sign up now</Link>
                     </p>
                     {error && <div className="bg-red-100 border border-red-400 text-red-700 mt-4 px-4 py-2 rounded relative justify-center" role="alert">

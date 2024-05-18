@@ -75,7 +75,6 @@ const addFavorite = async (req, res) => {
         const userId = req.user;
         const { jobId } = req.body;
 		console.log(jobId)
-		console.log(userId)
 
         const user = await User.findById(userId);
         if (!user) {
@@ -145,6 +144,26 @@ const isFavorite = async (req, res) => {
     }
 };
 
+const getFavoriteJobs = async (req, res) => {
+    try {
+        const userId = req.user;
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        // Get user's favoriteJobs array
+        const favoriteJobs = user.favoriteJobs;
+
+        // Send a response
+        res.status(200).json({ favoriteJobs });
+    } catch (error) {
+        // Send an error response
+        res.status(500).json({ message: error.message });
+    }
+};
+
 module.exports = {
 	register,
 	login,
@@ -152,4 +171,5 @@ module.exports = {
 	addFavorite,
 	removeFavorite,
 	isFavorite,
+	getFavoriteJobs,
 };
