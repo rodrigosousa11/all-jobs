@@ -60,7 +60,7 @@ export default function JobDetails() {
     };
 
     const addToFavorites = (jobSlug) => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
 
         return axios.post(`${fav_base}job/new`, { jobId: jobSlug }, {
             headers: {
@@ -77,7 +77,7 @@ export default function JobDetails() {
     }
 
     const removeFromFavorites = (jobSlug) => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
 
         return axios.post(`${fav_base}job/remove`, { jobId: jobSlug }, {
                 headers: {
