@@ -51,7 +51,7 @@ const Favorites = ({ searchQuery }) => {
     }, [searchResults]);
 
     const checkIfFavorite = (job) => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
 
         return axios.post(`${fav_base}job/isfavorite`, { jobId: job.slug }, {
             headers: {
