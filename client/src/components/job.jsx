@@ -36,7 +36,7 @@ export default function JobDetails() {
     }, [slug]);
     
     const checkIfFavorite = async (jobSlug) => {
-        const token = localStorage.getItem('token');
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
         try {
             const response = await axios.post(`${fav_base}job/isfavorite`, { jobId: jobSlug }, {
                 headers: {
