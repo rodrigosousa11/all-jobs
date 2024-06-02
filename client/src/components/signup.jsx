@@ -97,7 +97,7 @@ export default function Signup() {
                         )}
                     </div>
                     <button
-                        className="w-full py-3 mt-2 bg-indigo-600 hover:bg-indigo-500 relative rounded  text-white"
+                        className="w-full py-3 mt-2 bg-gray-600 hover:bg-gray-500 relative rounded  text-white"
                         disabled={!validatePassword(password)} // Disable button if password is invalid
                     >
                         Sign Up
@@ -108,7 +108,7 @@ export default function Signup() {
                         </p>
                     </div> */}
                     <p className="text-center mt-7">
-                        Have an account already? <Link to="/login" className="text-indigo-600 hover:underline">Login now</Link>
+                        Have an account already? <Link to="/login" className="text-gray-400 hover:underline">Login now</Link>
                     </p>
                     {error && <div className="bg-red-100 border border-red-400 text-red-700 mt-4 px-4 py-2 rounded relative" role="alert">
                         <p className="block sm:inline">{error}</p>

@@ -20,7 +20,7 @@ const Favorites = ({ searchQuery }) => {
                 console.error('Error fetching data:', error);
             }
         };
-    
+
         fetchData();
     }, []);
 
@@ -68,7 +68,7 @@ const Favorites = ({ searchQuery }) => {
         } else {
             await addToFavorites(job);
         }
-    
+
         setFavoriteStatus(prevStatus => ({
             ...prevStatus,
             [job.slug]: !isFavorite
@@ -96,12 +96,12 @@ const Favorites = ({ searchQuery }) => {
                 'Authorization': `Bearer ${token}`,
             },
         })
-        .then(response => {
-            console.log(response.data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     const removeFromFavorites = (job) => {
@@ -113,12 +113,12 @@ const Favorites = ({ searchQuery }) => {
                 'Authorization': `Bearer ${token}`,
             },
         })
-        .then(response => {
-            console.log(response.data);
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
     let jobsToDisplay = searchResults;
@@ -127,7 +127,7 @@ const Favorites = ({ searchQuery }) => {
             let title = Array.isArray(result.title) ? result.title[0] : result.title;
             let company_name = Array.isArray(result.company_name) ? result.company_name[0] : result.company_name;
             let location = Array.isArray(result.location) ? result.location[0] : result.location;
-        
+
             return (
                 (typeof title === 'string' && title.toLowerCase().includes(searchQuery.toLowerCase())) ||
                 (typeof company_name === 'string' && company_name.toLowerCase().includes(searchQuery.toLowerCase())) ||
@@ -142,25 +142,28 @@ const Favorites = ({ searchQuery }) => {
 
     return (
         <div className="p-4">
-            <h1 className="text-xl font-bold mb-4">Favorite Jobs</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {favoriteList.map((result, index) => (
-                    <div
-                        key={index}
-                        className="bg-gray-200 rounded p-4 border border-gray-300 min-h-52" 
-                    >
-                        <Link to={{ pathname: `/job/${result.slug}`, state: { jobDetails: result } }}>
-                            <h2 className="text-lg font-bold mb-2">{result.title}</h2>
-                        </Link>
-                        <p className="text-gray-600">Company: {result.company_name}</p>
-                        <p className="text-gray-600">Location: {result.location}</p>
-                        <p className="text-gray-600">Posted: {formatDate(result.created_at)}</p>
-                        <button onClick={() => handleButtonClick(result)} className="bg-gray-600 text-white px-3 py-2 mt-4 rounded hover:bg-blue-600">
-                            {favoriteStatus[result.slug] ? 'Remove from Favorites' : 'Add to Favorites'}
-                        </button>
-                    </div>
-                ))}
-            </div>
+            {favoriteList.length === 0 ? (
+                <div className="text-center text-gray-500">Ainda não tem empregos adicionados aos favoritos.</div>
+            ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {favoriteList.map((result, index) => (
+                        <div
+                            key={index}
+                            className="bg-gray-200 rounded p-4 border border-gray-300 min-h-52"
+                        >
+                            <Link to={{ pathname: `/job/${result.slug}`, state: { jobDetails: result } }}>
+                                <h2 className="text-lg font-bold mb-2">{result.title}</h2>
+                            </Link>
+                            <p className="text-gray-600">Company: {result.company_name}</p>
+                            <p className="text-gray-600">Location: {result.location}</p>
+                            <p className="text-gray-600">Posted: {formatDate(result.created_at)}</p>
+                            <button onClick={() => handleButtonClick(result)} className="bg-gray-600 text-white px-3 py-2 mt-4 rounded hover:bg-blue-600">
+                                {favoriteStatus[result.slug] ? 'Remove from Favorites' : 'Add to Favorites'}
+                            </button>
+                        </div>
+                    ))}
+                </div>
+            )}
         </div>
     );
 };

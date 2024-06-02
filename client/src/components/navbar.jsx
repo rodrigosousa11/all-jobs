@@ -6,7 +6,7 @@ const Navbar = ({ onSearch, onClearSearch }) => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const checkToken = () => {
-        const token = localStorage.getItem("token");
+        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
         setHasToken(!!token);
     };
 
